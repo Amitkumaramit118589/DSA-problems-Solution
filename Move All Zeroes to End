@@ -1,0 +1,20 @@
+class Solution {
+  public:
+    void pushZerosToEnd(vector<int>& arr) {
+        // code here
+        vector<int>temp;
+        for(int i=0;i<arr.size();i++){
+            if(arr[i]!=0){
+                temp.push_back(arr[i]);
+            }
+        }
+        for(int i=0;i<arr.size();i++){
+            if(temp.size()>i){
+                arr[i]=temp[i];
+            }
+            else{
+                arr[i]=0;
+            }
+        }
+    }
+};
