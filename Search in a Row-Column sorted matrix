@@ -1,0 +1,18 @@
+class Solution {
+  public:
+    bool matSearch(vector<vector<int>> &mat, int x) {
+        int n = mat.size();
+        if (n == 0) return false; // Check if matrix is empty
+        int m = mat[0].size();
+
+        for (int i = 0; i < n; i++) {
+            if (mat[i][m - 1] >= x) { // Check the last element in the current row
+                for (int j = m - 1; j >= 0; j--) { // Backward search in the row
+                    if (mat[i][j] == x) return true;
+                    if (mat[i][j] < x) break; // Stop searching once an element < x is found
+                }
+            }
+        }
+        return false; // Element not found
+    }
+};
