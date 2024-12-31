@@ -1,0 +1,18 @@
+class Solution {
+  public:
+    // Function to find the sum of contiguous subarray with maximum sum.
+    int maxSubarraySum(vector<int>& arr) {
+        int ans = arr[0]; // Initialize the maximum sum as the first element
+        int temp = 0;     // Initialize the current sum as 0
+
+        for (int i = 0; i < arr.size(); i++) {
+            temp += arr[i];       // Add the current element to the current sum
+            ans = max(ans, temp); // Update the maximum sum
+            if (temp < 0) {       // If the current sum becomes negative
+                temp = 0;         // Reset it to 0
+            }
+        }
+
+        return ans; // Return the maximum sum
+    }
+};
