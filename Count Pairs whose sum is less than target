@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int countPairs(vector<int>& arr, int target) {
+        sort(arr.begin(), arr.end());  // Step 1: Sort the array
+        int l = 0, r = arr.size() - 1, ans = 0;  // Initialize pointers and result
+        
+        // Step 2: Two-pointer loop
+        while (l < r) {
+            if (arr[l] + arr[r] < target) {  // If the pair's sum is less than the target
+                ans += (r - l);  // Count all pairs (l, l+1, ..., r)
+                l++;  // Move the left pointer
+            } else {
+                r--;  // Otherwise, move the right pointer to decrease the sum
+            }
+        }
+        
+        return ans;  // Return the total count
+    }
+};
