@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int countTriangles(vector<int>& arr) {
+        sort(arr.begin(), arr.end());  // Step 1: Sort the array
+        int cnt = 0;  // Initialize the count of valid triangles
+
+        // Step 2: Iterate from the largest element to the third element
+        for (int i = arr.size() - 1; i >= 2; --i) {
+            int l = 0, r = i - 1;  // Initialize two pointers for the subarray before 'i'
+
+            // Step 3: Use two pointers to count valid triangles with 'arr[i]' as the largest side
+            while (l < r) {
+                if (arr[l] + arr[r] > arr[i]) {  // If the sum of two smaller sides is greater than the largest side
+                    cnt += r - l;  // All pairs between 'l' and 'r' form valid triangles
+                    --r;  // Move the right pointer to explore smaller values
+                } else {
+                    ++l;  // Otherwise, move the left pointer to increase the sum
+                }
+            }
+        }
+        return cnt;  // Return the total count of valid triangles
+    }
+};
