@@ -1,0 +1,23 @@
+Longest substring with distinct characters
+
+class Solution {
+  public:
+    int longestUniqueSubstr(string &s) {
+        // code here
+    unordered_map<char, int> lastSeen;
+    int start = 0, maxLength = 0;
+
+    for (int end = 0; end < s.size(); end++) {
+        // If the character is already in the window, update the start position
+        if (lastSeen.find(s[end]) != lastSeen.end()) {
+            start = max(start, lastSeen[s[end]] + 1);
+        }
+        // Update the last seen position of the character
+        lastSeen[s[end]] = end;
+        // Update the maximum length
+        maxLength = max(maxLength, end - start + 1);
+    }
+
+    return maxLength;
+    }
+};
