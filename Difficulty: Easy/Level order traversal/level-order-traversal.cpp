@@ -45,20 +45,27 @@ class Solution {
   public:
     vector<vector<int>> levelOrder(Node *root) {
         // Your code here
-        vector<vector<int>>result;
         queue<Node*>q;
         q.push(root);
+        vector<vector<int>>ans;
         
-        while(!q.empty()){
-            vector<int>ans;
-            Node* curr=q.front();
+        while(q.size()!=0){
+            int n=q.size();
+            vector<int>v;
+            
+            while(n!=0){
+            Node* temp=q.front();
             q.pop();
-            ans.push_back(curr->data);
-            if(curr->left) q.push(curr->left);
-            if(curr->right) q.push(curr->right);
-            result.push_back(ans);
+            v.push_back(temp->data);
+            if(temp->left!=NULL) q.push(temp->left);
+            if(temp->right!=NULL) q.push(temp->right);
+            n--;
+            }
+            ans.push_back(v);
         }
-        return result;
+        return ans;
+        
+        
     }
 };
 
