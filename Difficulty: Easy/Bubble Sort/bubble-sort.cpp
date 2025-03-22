@@ -11,18 +11,18 @@ using namespace std;
 class Solution {
   public:
     // Function to sort the array using bubble sort algorithm.
+    void recbubblesort(vector<int>& arr ,int j){
+        if(j==0) return;
+        for(int i=0;i<j;i++){
+            if(arr[i]>arr[i+1]) swap(arr[i],arr[i+1]);
+        }
+        recbubblesort(arr,j-1);
+    }
     void bubbleSort(vector<int>& arr) {
         // Your code here
-        for(int i=arr.size()-1;i>=0;i--){
-            int didswap=0;
-            for(int j=0;j<=i-1;j++){
-                if(arr[j]>arr[j+1]){
-                    swap(arr[j],arr[j+1]);
-                    didswap=1;
-                }
-            }
-            if(didswap==0) break;
-        }
+        recbubblesort(arr,arr.size()-1);
+        
+        
     }
 };
 
