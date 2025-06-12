@@ -1,10 +1,3 @@
-//{ Driver Code Starts
-//Initial Template for C++
-#include<bits/stdc++.h>
-using namespace std;
-
-
-// } Driver Code Ends
 //User function Template for C++
 
 class Solution{
@@ -24,27 +17,3 @@ public:
         return s;
     }
 };
-
-//{ Driver Code Starts.
-int main(){
-    int t = 1;
-    cin >> t;
-
-
-    while(t--){
-        //Input
-        int n; cin >> n;
-
-        Solution obj;
-        
-        vector<string> v = obj.generateBinaryStrings(n);
-        for(auto it:v) cout<<it<<" ";
-        cout << endl;
-    
-cout << "~" << "\n";
-}
-
-    return 0;
-}
-
-// } Driver Code Ends
