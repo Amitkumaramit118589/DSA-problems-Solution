@@ -3,19 +3,19 @@ class Solution {
     vector<int> bfs(vector<vector<int>> &adj) {
         // code here
         vector<int>ans;
-        queue<int>q;
         vector<bool>vis(adj.size(),false);
+        queue<int>q;
         
         q.push(0);
         vis[0]=true;
         while(q.size()>0){
-            int u=q.front();
+            int f=q.front();
+            ans.push_back(f);
             q.pop();
-            ans.push_back(u);
-            for(int v:adj[u]){
+            for(int v:adj[f]){
                 if(!vis[v]){
-                    vis[v]=true;
                     q.push(v);
+                    vis[v]=true;
                 }
             }
         }
