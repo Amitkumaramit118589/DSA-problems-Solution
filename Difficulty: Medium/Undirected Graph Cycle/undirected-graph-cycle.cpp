@@ -1,77 +1,46 @@
-//{ Driver Code Starts
-#include <bits/stdc++.h>
-using namespace std;
-
-
-// } Driver Code Ends
-
 class Solution {
-  public:
-    bool isCycle(int V, vector<vector<int>>& edges) {
-        // Code here
-        vector<int>adj[V];
-        for(auto &it:edges){
-            int u=it[0];
-            int v=it[1];
-            adj[u].push_back(v);
-            adj[v].push_back(u);
-        }
-        
-        vector<bool>vis(V, 0);
-        vector<int>par(V, -1);
-        
-        for(int i=0; i<V; i++){
-            if(!vis[i]){
-                queue<int>q;
-                q.push(i);
-                vis[i]=1;
-                while(!q.empty()){
-                    int node=q.front();
-                    q.pop();
-                    
-                    for(auto &ngbr:adj[node]){
-                        if(!vis[ngbr]){
-                            vis[ngbr]=1;
-                            par[ngbr]=node;
-                            q.push(ngbr);
-                        }else if(par[node]!=ngbr) return 1;
-                    }
+public:
+    bool bfs(int start, vector<vector<int>>& adj, vector<int>& visited) {
+        queue<pair<int,int>> q;
+        q.push({start, -1});
+        visited[start] = 1;
+
+        while (!q.empty()) {
+            auto [node, parent] = q.front();
+            q.pop();
+
+            for (int nei : adj[node]) {
+                if (!visited[nei]) {
+                    visited[nei] = 1;
+                    q.push({nei, node});
+                }
+                // if visited and not parent → cycle
+                else if (nei != parent) {
+                    return true;
                 }
             }
         }
-        return 0;
+        return false;
     }
-};
 
+    bool isCycle(int V, vector<vector<int>>& edges) {
+        vector<vector<int>> adj(V);
 
-//{ Driver Code Starts.
-
-int main() {
-    int tc;
-    cin >> tc;
-    cin.ignore();
-    while (tc--) {
-        int V, E;
-        cin >> V >> E;
-        cin.ignore();
-        vector<vector<int>> edges;
-        for (int i = 1; i <= E; i++) {
-            int u, v;
-            cin >> u >> v;
-            edges.push_back({u, v});
+        // Build UNDIRECTED adjacency list
+        for (auto &e : edges) {
+            adj[e[0]].push_back(e[1]);
+            adj[e[1]].push_back(e[0]);
         }
 
-        Solution obj;
-        bool ans = obj.isCycle(V, edges);
-        if (ans)
-            cout << "true\n";
-        else
-            cout << "false\n";
+        vector<int> visited(V, 0);
 
-        cout << "~"
-             << "\n";
+        // Check each component
+        for (int i = 0; i < V; i++) {
+            if (!visited[i]) {
+                if (bfs(i, adj, visited)) 
+                    return true;
+            }
+        }
+        return false;
     }
-    return 0;
-}
-
-// } Driver Code Ends
+};
