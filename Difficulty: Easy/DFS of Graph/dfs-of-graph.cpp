@@ -1,20 +1,21 @@
 class Solution {
   public:
-    vector<int>ans;
-    void dfshelp(int u,vector<bool>&vis,vector<vector<int>>&adj){
+    
+    void helper(int u,vector<int> &ans,vector<bool>&vis,vector<vector<int>>&adj){
         ans.push_back(u);
         vis[u]=true;
-        for(int v:adj[u]){
-            if(!vis[v]){
-                dfshelp(v,vis,adj);
+        for(int i:adj[u]){
+            if(!vis[i]){
+                helper(i,ans,vis,adj);
             }
         }
     }
     vector<int> dfs(vector<vector<int>>& adj) {
         // Code here
+        vector<int>ans;
         vector<bool>vis(adj.size(),false);
-        dfshelp(0,vis,adj);
+        int src=0;
+        helper(src,ans,vis,adj);
         return ans;
-        
     }
 };
