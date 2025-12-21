@@ -1,23 +1,20 @@
-
 class Solution {
   public:
-    void solve(int node,vector<vector<int>>& adj,vector<int> &vis,vector<int> &ans){
-        vis[node]=1;
-        ans.push_back(node);
-        for(auto &it: adj[node]){
-            if(vis[it]==0){
-                solve(it,adj,vis,ans);
+    vector<int>ans;
+    void dfshelp(int u,vector<bool>&vis,vector<vector<int>>&adj){
+        ans.push_back(u);
+        vis[u]=true;
+        for(int v:adj[u]){
+            if(!vis[v]){
+                dfshelp(v,vis,adj);
             }
         }
     }
     vector<int> dfs(vector<vector<int>>& adj) {
         // Code here
-        int n=adj.size();
-        vector<int> vis(n,0);
-        vector<int> ans;
-        int start=0;
-        solve(start,adj,vis,ans);
+        vector<bool>vis(adj.size(),false);
+        dfshelp(0,vis,adj);
         return ans;
+        
     }
 };
-
