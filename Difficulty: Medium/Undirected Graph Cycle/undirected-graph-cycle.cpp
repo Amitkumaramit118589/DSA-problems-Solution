@@ -1,46 +1,32 @@
 class Solution {
-public:
-    bool bfs(int start, vector<vector<int>>& adj, vector<int>& visited) {
-        queue<pair<int,int>> q;
-        q.push({start, -1});
-        visited[start] = 1;
-
-        while (!q.empty()) {
-            auto [node, parent] = q.front();
-            q.pop();
-
-            for (int nei : adj[node]) {
-                if (!visited[nei]) {
-                    visited[nei] = 1;
-                    q.push({nei, node});
-                }
-                // if visited and not parent → cycle
-                else if (nei != parent) {
-                    return true;
-                }
+  public:
+    bool DFS(int node,int parent,vector<int> adj[],vector<int>&vis){
+        vis[node]=1;
+        for(auto it : adj[node]){
+            if(!vis[it]){
+                if(DFS(it,node,adj,vis)) return true;
             }
+            else if(it!=parent) return true;
         }
         return false;
     }
-
     bool isCycle(int V, vector<vector<int>>& edges) {
-        vector<vector<int>> adj(V);
-
-        // Build UNDIRECTED adjacency list
-        for (auto &e : edges) {
-            adj[e[0]].push_back(e[1]);
-            adj[e[1]].push_back(e[0]);
+        // Code here
+        int n = edges.size();
+        vector<int> vis(V,0);
+        vector<int> adj[V];
+        for(auto it : edges){
+            int u = it[0];
+            int v = it[1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
         }
-
-        vector<int> visited(V, 0);
-
-        // Check each component
-        for (int i = 0; i < V; i++) {
-            if (!visited[i]) {
-                if (bfs(i, adj, visited)) 
-                    return true;
+        for(int i=0;i<V;i++){
+            if(!vis[i]){
+                if(DFS(i,-1,adj,vis)) return true;
             }
         }
         return false;
     }
 };
+
